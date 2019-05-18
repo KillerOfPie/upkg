@@ -1,3 +1,16 @@
+
+## How To Install
+
+For Windows: Format your disk & install Linux
+
+For Linux:
+	wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+
+(you will be asked for sudo)
+
+
+## The Rosetta Stone
+
 | rpm                   | yum                           | debian                        | arch                              |
 |-----------------------|-------------------------------|-------------------------------|-----------------------------------|
 | `rpm -i foo.rpm`      |                               | `dpkg -i foo.deb`             | `pacman -U foo.pkg.tar.xz`        |
