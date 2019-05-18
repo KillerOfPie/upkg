@@ -3,7 +3,7 @@
 
 A **universal package manager** for Linux (command line).  
 **Goal**: Same syntax for all flavors of Linux for most frequent tasks.    
-**Name**: I call it **pkg** (or **upk** or **rosetta**  --> I plan to ask for the name at install).  
+**Name**: I call it **pkg** (or **upkg** or **rosetta**  --> I plan to ask for the name at install).  
 
 You can see it as a package manager proxy: This is just a script, volontarily kept simple to that you can check what it does in 1 minute.
 
