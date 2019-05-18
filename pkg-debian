@@ -1,0 +1,83 @@
+#!/bin/bash -
+#===============================================================================
+#
+#          FILE: pkg
+#
+#   DESCRIPTION: Arch package management command line commands and functions.
+#
+#        AUTHOR: Nadir Boussoukaia
+#       CREATED: 04/04/2019
+#
+#      	  NOTES:
+#                see also: https://wiki.archlinux.org/index.php/Pacman/Rosetta
+#
+#===============================================================================
+
+VERSION=0.1
+
+USAGE=$(cat <<ENDSTR
+
+Usage: ${0/\.\//} <command> [arguments]
+
+Commands:
+
+	install
+		Install a package(s) by name
+
+	remove
+		Remove a package(s) by name
+
+	search
+		search for package(s) by name
+
+	update
+		Check for updates & upgrade. equivalent to update+upgrade
+		Update catalog then Upgrade Packages - Install packages which have an older version already installed
+
+	locate|belong
+		Query the package which provides FILE
+
+	version
+		version of that tool and the underlying package manager
+
+
+ENDSTR
+)
+
+[ $# = 0 ] && echo "${USAGE}" && exit 1
+
+command="$1"
+shift
+case "$command" in
+    version)
+        echo $VERSION
+        ;;
+    help|--help)
+        echo  "${USAGE}"
+        ;;
+#...........................................
+	install)
+		sudo apt-get install "$@"
+		;;
+	remove)
+		apt-get remove  "$@"
+		;;
+	update)
+		sudo apt-get update
+		sudo apt-get -u upgrade
+		;;
+	search)
+		sudo apt-cache search  "$@"
+		;;
+	locate|belong)
+		for i in $(whereis $1|cut -d ':' -f 2); do dpkg -S $i; done
+		;;
+#...........................................
+*)
+	echo Unknown command: "$1"
+	echo "$USAGE"
+	exit 1
+	;;
+esac
+
+
