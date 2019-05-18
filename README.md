@@ -1,9 +1,13 @@
 
-## How To Install
+## What is it? 
 
-**For Windows Users**
-- Format your disk & install Linux
-- proceed to the next section 
+A **universal package manager** for Linux (command line).  
+**Goal**: Same syntax for all flavors of Linux for most frequent tasks.    
+**Name**: I call it **pkg** (or **upk** or **rosetta**  --> I plan to ask for the name at install).  
+
+You can see it as a package manager proxy: This is just a script, volontarily kept simple to that you can check what it does in 1 minute.
+
+## How To Install?
 
 **For Linux Users**
 - Use the single line installer command line below
@@ -13,9 +17,47 @@
 wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
 ```	
 
+**For Windows Users**
+- Format your disk & install Linux
+- proceed to the previous section 
 
+## What will you get?
+
+a new generic package manager, that will proxy  command line to the underlying system package manager (rpm, yum, apt, pacman, you name it).
+
+```
+Usage: pkg <command> [arguments]
+
+Commands:
+
+	install
+		Install a package(s) by name
+
+	remove
+		Remove a package(s) by name
+
+	search
+		search for package(s) by name
+
+	update
+		Check for updates & upgrade. equivalent to update+upgrade
+		Update catalog then Upgrade Packages - Install packages which have an older version already installed
+
+	locate|belong
+		Query the package which provides FILE
+
+	version
+		version of that tool and the underlying package manager
+
+```
 
 ## The Rosetta Stone
+
+The famous Arch Linux's **Pacman Rosetta** gave me the idea of this tool, I wrote it several years later.  
+But above all: that weird syntax of basic commands on Arch (pacman).
+
+> see here: https://wiki.archlinux.org/index.php/Pacman/Rosetta
+
 
 | rpm                   | yum                           | debian                        | arch                              |
 |-----------------------|-------------------------------|-------------------------------|-----------------------------------|

@@ -3,7 +3,7 @@
 #
 #          FILE: pkg
 #
-#   DESCRIPTION: Arch package management command line commands and functions.
+#   DESCRIPTION: Universal package manager command line
 #
 #        AUTHOR: Nadir Boussoukaia
 #       CREATED: 04/04/2019
@@ -13,7 +13,7 @@
 #
 #===============================================================================
 
-VERSION=0.1
+VERSION=0.2
 
 USAGE=$(cat <<ENDSTR
 
@@ -46,6 +46,9 @@ ENDSTR
 
 [ $# = 0 ] && echo "${USAGE}" && exit 1
 
+sudo=$(which sudo|cut -d ':' -f 2)
+if [ $(id -u) -eq 0 ]; then sudo=""; fi
+
 command="$1"
 shift
 case "$command" in
@@ -57,20 +60,19 @@ case "$command" in
         ;;
 #...........................................
 	install)
-		sudo yum install "$@"
+		$sudo yum install "$@"
 		;;
 	remove)
-		sudo yum remove  "$@"
+		$sudo yum remove  "$@"
 		;;
 	update)
-		sudo yum update
-		sudo yum -u upgrade
+		$sudo yum update
 		;;
 	search)
 		yum search "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do yum whatprovides $i; done
+		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   yum whatprovides $i 2> /dev/null; fi;  done
 		;;
 #...........................................
 *)
