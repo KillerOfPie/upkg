@@ -1,14 +1,14 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: pkg
-# 
+#
 #   DESCRIPTION: Arch package management command line commands and functions.
 #
 #        AUTHOR: Nadir Boussoukaia
 #       CREATED: 04/04/2019
 #
-#      	  NOTES: 
+#      	  NOTES:
 #                see also: https://wiki.archlinux.org/index.php/Pacman/Rosetta
 #
 #===============================================================================
@@ -16,26 +16,30 @@
 VERSION=0.1
 
 USAGE=$(cat <<ENDSTR
-Usage: $0 <command> [arguments]
 
-	Commands:
-	install	
+Usage: ${0/\.\//} <command> [arguments]
+
+Commands:
+
+	install
 		Install a package(s) by name
+
 	remove
 		Remove a package(s) by name
-	search 
+
+	search
 		search for package(s) by name
-		
+
 	update
-	upgrade
+		Check for updates & upgrade. equivalent to update+upgrade
 		Update catalog then Upgrade Packages - Install packages which have an older version already installed
-	update
-	refresh
-		Check for updates & upgrades. equivalent to update+upgrade
-	locate|belong		
+
+	locate|belong
 		Query the package which provides FILE
-		
+
 	version
+		version of that tool and the underlying package manager
+
 
 ENDSTR
 )
@@ -45,10 +49,13 @@ ENDSTR
 command="$1"
 shift
 case "$command" in
-version)
-	echo $VERSION
-	;;
-#...........................................	
+    version)
+        echo $VERSION
+        ;;
+    help|--help)
+        echo  "${USAGE}"
+        ;;
+#...........................................
 	install)
 		sudo pacman -S --needed "$@"
 		;;
@@ -58,21 +65,14 @@ version)
 	update)
 		sudo pacman -Syyu
 		;;
-	upgrade)
-		sudo pacman -Su
-		;;
 	search)
 		sudo pacman -Ss  "$@"
 		;;
-	refresh)
-		sudo pacman -Syyuu
-		;;	
-	locate|belong)			    
-		for i in $(whereis $1|cut -d ':' -f 2); do pacman -Qo  $i; done		
-		;;	
-
-#...........................................				
-*) 
+	locate|belong)
+		for i in $(whereis $1|cut -d ':' -f 2); do pacman -Qo  $i; done
+		;;
+#...........................................
+*)
 	echo Unknown command: "$1"
 	echo "$USAGE"
 	exit 1
