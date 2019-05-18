@@ -57,20 +57,20 @@ case "$command" in
         ;;
 #...........................................
 	install)
-		sudo apt-get install "$@"
+		sudo yum install "$@"
 		;;
 	remove)
-		apt-get remove  "$@"
+		sudo yum remove  "$@"
 		;;
 	update)
-		sudo apt-get update
-		sudo apt-get -u upgrade
+		sudo yum update
+		sudo yum -u upgrade
 		;;
 	search)
-		apt-cache search  "$@"
+		yum search "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do dpkg -S $i; done
+		for i in $(whereis $1|cut -d ':' -f 2); do yum whatprovides $i; done
 		;;
 #...........................................
 *)

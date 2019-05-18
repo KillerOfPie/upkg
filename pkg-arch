@@ -66,10 +66,10 @@ case "$command" in
 		sudo pacman -Syyu
 		;;
 	search)
-		sudo pacman -Ss  "$@"
+		pacman -Ss  "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do pacman -Qo  $i; done
+		for i in $(whereis $1|cut -d ':' -f 2); do pacman -Qo $i; done
 		;;
 #...........................................
 *)

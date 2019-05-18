@@ -6,7 +6,7 @@ NAME=pkg
 
 #####################################
 
-function checkos
+checkos()
 {
 case `uname` in
   Linux )
@@ -35,12 +35,16 @@ if [ $os = "unknown" ]; then
 	exit -1
 fi 
 
-wget -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/pkg-$os
+wget -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/pkg-$os 2> /dev/null
 if [ -s $TMPFILE ]; then
-	echo "This installer Will copy the script '$NAME' into $TARGET";
-	sudo cp $TMPFILE $TARGET/$NAME && sudo chmod +x $TARGET/$NAME
-	echo "----------------------------------------------"
-	echo "$NAME $(grep VERSION pkg|head -1|cut -d '=' -f 2) has been installed."
-	echo -e "( full path: $TARGET/$NAME )\n"
-	echo -e "-> try 'pkg' or 'pkg help' to check it out.\n"
+        echo "This installer Will copy the script '$NAME' into $TARGET";
+        sudo=$(which sudo|cut -d ':' -f 2)
+        if [ $(id -u) -eq 0 ]; then sudo=""; fi
+
+        $sudo cp $TMPFILE $TARGET/$NAME && $sudo chmod +x $TARGET/$NAME
+        echo "----------------------------------------------"
+        echo "$NAME $(grep VERSION $TMPFILE|head -1|cut -d '=' -f 2) has been installed."
+        echo "( full path: $TARGET/$NAME )"
+        echo "-> try 'pkg' or 'pkg help' to check it out."
+        echo ""
 fi

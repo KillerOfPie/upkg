@@ -7,10 +7,11 @@
 
 **For Linux Users**
 - Use the single line installer command line below
-- cut and paste in a terminal (you will be asked for sudo)
+- cut and paste in a terminal (you will be asked for sudo):
 
-	wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
-	
+```
+wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+```	
 
 
 
