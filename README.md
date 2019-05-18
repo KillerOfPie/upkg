@@ -1,12 +1,16 @@
 
 ## How To Install
 
-For Windows: Format your disk & install Linux
+**For Windows Users**
+- Format your disk & install Linux
+- proceed to the next section 
 
-For Linux:
-	wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+**For Linux Users**
+- Use the single line installer command line below
+- cut and paste in a terminal (you will be asked for sudo)
 
-(you will be asked for sudo)
+> wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+
 
 
 ## The Rosetta Stone
