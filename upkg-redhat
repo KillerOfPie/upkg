@@ -72,6 +72,7 @@ case "$command" in
 		$sudo dnf remove  "$@"
 		;;
 	update)
+		$sudo dnf check-update
 		$sudo dnf upgrade
 		;;
 	search)

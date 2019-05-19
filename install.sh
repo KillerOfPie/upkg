@@ -6,9 +6,9 @@
 #        AUTHOR: Nadir Boussoukaia
 #       CREATED: 18/05/2019
 #===============================================================================
-TMPFILE=/tmp/pkg
+TMPFILE=/tmp/upkg
 TARGET=/usr/bin
-NAME=pkg
+NAME=upkg
 
 #####################################
 checkos()
@@ -46,7 +46,7 @@ if [ $os = "unknown" ]; then
 	exit -1
 fi 
 
-wget -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/pkg-$os 2> /dev/null
+wget -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 2> /dev/null
 if [ -s $TMPFILE ]; then
         echo "This installer Will copy the script '$NAME' into $TARGET";
         sudo=$(which sudo|cut -d ':' -f 2)
@@ -56,6 +56,6 @@ if [ -s $TMPFILE ]; then
         echo "----------------------------------------------"
         echo "$NAME $(grep VERSION $TMPFILE|head -1|cut -d '=' -f 2) has been installed."
         echo "( full path: $TARGET/$NAME )"
-        echo "-> try 'pkg' or 'pkg help' to check it out."
+        echo "-> try '$NAME' or '$NAME help' to check it out."
         echo ""
 fi
