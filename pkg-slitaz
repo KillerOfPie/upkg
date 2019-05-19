@@ -60,19 +60,19 @@ case "$command" in
         ;;
 #...........................................
 	install)
-		$sudo emerge -a "$@"
+		$sudo tazpkg get-install "$@"
 		;;
 	remove)
-		$sudo emerge  -C  "$@"
+		$sudo tazpkg remove  "$@"
 		;;
 	update)
-		$sudo emerge -u world 
+		$sudo tazpkg upgrade
 		;;
 	search)
-		emerge  -S "$@"
+		tazpkg search "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then 	equery belongs $i 2> /dev/null; fi;  done
+		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   tazpkg search-file $i 2> /dev/null; fi;  done
 		;;
 #...........................................
 *)

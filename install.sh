@@ -1,31 +1,37 @@
 #!/usr/bin/env sh
-
+#===============================================================================
+#          FILE: pkg installer
+#   DESCRIPTION: Universal Installer for package manager command line
+#
+#        AUTHOR: Nadir Boussoukaia
+#       CREATED: 18/05/2019
+#===============================================================================
 TMPFILE=/tmp/pkg
 TARGET=/usr/bin
 NAME=pkg
 
 #####################################
-
 checkos()
 {
-case `uname` in
-  Linux )
-     LINUX=1
-     which dnf >/dev/null 2>&1  && { echo redhat; return; }
-     which yum >/dev/null 2>&1  && { echo centos; return; }
-     which zypper >/dev/null 2>&1  && { echo opensuse; return; }
-     which apt-get>/dev/null 2>&1  && { echo debian; return; }
-     which pacman >/dev/null 2>&1 && { echo arch; return;  }
-     which emerge >/dev/null 2>&1 && { echo gentoo; return;  }
-     ;;
-  Darwin )
-     DARWIN=1
-     echo macos; return; 
-     ;;
-  * )
-	echo unknown;
-;;
-esac
+	case `uname` in
+	  Linux )
+		 LINUX=1
+		 which dnf >/dev/null 2>&1  && { echo redhat; return; }
+		 which yum >/dev/null 2>&1  && { echo centos; return; }
+		 which zypper >/dev/null 2>&1  && { echo opensuse; return; }
+		 which apt-get>/dev/null 2>&1  && { echo debian; return; }
+		 which pacman >/dev/null 2>&1 && { echo arch; return;  }
+		 which emerge >/dev/null 2>&1 && { echo gentoo; return;  }
+		 which tazpkg >/dev/null 2>&1 && { echo slitaz; return;  }
+		 ;;
+	  Darwin )
+		 DARWIN=1
+		 echo macos; return; 
+		 ;;
+	  * )
+		echo unknown;
+	;;
+	esac
 }  
 ##################################### End Function Definitions
 
