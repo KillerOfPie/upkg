@@ -5,7 +5,7 @@ A **universal package manager** for Linux (command line).
 **Goal**: Same syntax for all flavors of Linux for most frequent tasks.    
 **Name**: **upkg**  (or **rosetta** or better idea?  --> I plan to ask for the name at install).  
 
-You can see it as a package manager proxy: This is just a script, voluntarily kept simple to that you can check what it does in 1 minute.
+You can see it as a package manager proxy, or a wrapper: This is just a script, voluntarily kept simple to that you can check what it does in 1 minute.
 
 > **Supports**:  dnf, yum, zypper, apt-get, pacman, emerge, tazpkg, xbps, pkg_add, brew (mostly untested, this is alpha version)    
 > So all flavors of: Arch, Red Hat/Fedora, Debian/Ubuntu, SLES/openSUSE, Gentoo/calculate, Slitaz, Void linux, openBSD, MacOS
@@ -13,7 +13,7 @@ You can see it as a package manager proxy: This is just a script, voluntarily ke
 ## How To Install?
 
 **For Linux Users**
-- Use the single line installer command line below
+- Use the single line installer command line below (Debian has wget, Red Hat has curl by default)
 - cut and paste in a terminal (you will be asked for sudo):
 
 ```

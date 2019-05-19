@@ -75,13 +75,14 @@ case "$command" in
 		$sudo emerge -u world 
 		;;
 	search)
-		emerge  -S "$@"
-		;;
-	locate|belong)
+                equery list "$@"
+                #emerge  -S "$@"   #too slow
+                ;;
+        locate|belong|belongs)
 		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then 	equery belongs $i 2> /dev/null; fi;  done
 		;;
 	info)
-		layman -l "$@"
+                equery meta "$@"
 		;;	
 	list|files)
 		equery files "$@"
