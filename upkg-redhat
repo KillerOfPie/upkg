@@ -71,18 +71,17 @@ case "$command" in
 	remove)
 		$sudo dnf remove  "$@"
 		;;
-	update)
-		$sudo dnf check-update
+        update|upgrade)
 		$sudo dnf upgrade
 		;;
 	search)
-		dnf search "$@"
+                dnf list "$@*"
 		;;
 	locate|belong)
 		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   dnf provides $i 2> /dev/null; fi;  done
 		;;
 	info)
-		echo "not supported ?"
+		dnf info "$@"
 		;;	
 	list|files)
 		rpm -ql "$@"

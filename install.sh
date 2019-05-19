@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh                                                                                                                                                  
 #===============================================================================
 #          FILE: pkg installer
 #   DESCRIPTION: Universal Installer for package manager command line
@@ -11,6 +11,12 @@ TARGET=/usr/bin
 NAME=upkg
 
 #####################################
+# Check whether a command exists - returns 0 if it does, 1 if it does not
+exists() {
+  if which $1 >/dev/null 2>&1; then return 0; fi; return 1
+}
+
+#try to find the best package manager to use (order is important)
 checkos()
 {
 	case `uname` in
@@ -37,7 +43,7 @@ checkos()
 	esac
 }  
 ##################################### End Function Definitions
-
+echo "----------------------------------------------"
 # Call checkos to detect Linux package manager flavor
 os=$(checkos) && echo "OS detected: $os"
 
@@ -46,15 +52,22 @@ if [ $os = "unknown" ]; then
 	exit -1
 fi 
 
+if exists wget; then
 wget -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 2> /dev/null
+else 
+	if exists curl; then
+		curl -o $TMPFILE https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 2> /dev/null
+	fi
+fi
+
 if [ -s $TMPFILE ]; then
         echo "This installer Will copy the script '$NAME' into $TARGET";
         sudo=$(which sudo|cut -d ':' -f 2)
         if [ $(id -u) -eq 0 ]; then sudo=""; fi
 
-        $sudo cp $TMPFILE $TARGET/$NAME && $sudo chmod +x $TARGET/$NAME
+        $sudo mv $TMPFILE $TARGET/$NAME && $sudo chmod +x $TARGET/$NAME
         echo "----------------------------------------------"
-        echo "$NAME $(grep VERSION $TMPFILE|head -1|cut -d '=' -f 2) has been installed."
+        echo "$NAME $(grep VERSION $TARGET/$NAME|head -1|cut -d '=' -f 2) has been installed."
         echo "( full path: $TARGET/$NAME )"
         echo "-> try '$NAME' or '$NAME help' to check it out."
         echo ""

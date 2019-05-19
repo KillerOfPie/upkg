@@ -18,6 +18,11 @@ You can see it as a package manager proxy: This is just a script, voluntarily ke
 
 ```
 wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+
+or
+
+curl https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+
 ```	
 
 **For Windows Users**
