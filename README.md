@@ -26,10 +26,10 @@ wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-sto
 
 ## What will you get?
 
-a new generic package manager, that will proxy  command line to the underlying system package manager (rpm, yum, apt, pacman, you name it).
+Same syntax for a package manager whatever the distribution:
 
 ```
-Usage: pkg <command> [arguments]
+Usage: upkg <command> [arguments]
 
 Commands:
 
@@ -43,8 +43,9 @@ Commands:
 		search for package(s) by name
 
 	update
-		Check for updates & upgrade. equivalent to update+upgrade
-		Update catalog then Upgrade Packages - Install packages which have an older version already installed
+		Check for updates & upgrade. equivalent to update+upgrade   
+		Update catalog then Upgrade Packages    
+		Install packages which have an older version already installed
 
 	locate or belong
 		Query the package which provides FILE
@@ -59,6 +60,9 @@ Commands:
 		version of that tool and the underlying package manager
 
 ```
+It is like a new generic package manager, which will proxy command line to the underlying system package manager (rpm, yum, apt, pacman, you name it).   
+Said differently: an "alias script" for package managers, a "proxy script" for package managers
+
 
 ## The Rosetta Stone
 
