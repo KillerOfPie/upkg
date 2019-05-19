@@ -1,7 +1,7 @@
 
 ## What is it? 
 
-A **universal package manager** for Linux (a wrapper for the command line).  
+A **universal package manager** for Linux (a **wrapper** for the command line).  
 **Goal**: Same syntax for all flavors of Linux for most frequent tasks.    
 **Name**: **upkg**  (or **rosetta** or better idea?  --> I plan to ask for the name at install).  
 
