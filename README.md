@@ -5,7 +5,10 @@ A **universal package manager** for Linux (command line).
 **Goal**: Same syntax for all flavors of Linux for most frequent tasks.    
 **Name**: I call it **pkg** (or **upkg** or **rosetta**  --> I plan to ask for the name at install).  
 
-You can see it as a package manager proxy: This is just a script, volontarily kept simple to that you can check what it does in 1 minute.
+You can see it as a package manager proxy: This is just a script, voluntarily kept simple to that you can check what it does in 1 minute.
+
+> **Supports**:  dnf, yum, zypper, apt-get, pacman, emerge, tazpkg,  xbps  (mostly untested, this is alpha version)    
+> So all flavors of: Arch, Red Hat/Fedora, Debian/Ubuntu, SLES/openSUSE, Gentoo/calculate, Slitaz, Void linux
 
 ## How To Install?
 
@@ -43,8 +46,14 @@ Commands:
 		Check for updates & upgrade. equivalent to update+upgrade
 		Update catalog then Upgrade Packages - Install packages which have an older version already installed
 
-	locate|belong
+	locate or belong
 		Query the package which provides FILE
+
+	info
+		print information about a package - print description of a package
+		
+	list or files 
+		list the files installed with a package
 
 	version
 		version of that tool and the underlying package manager

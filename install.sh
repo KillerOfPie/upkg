@@ -23,6 +23,7 @@ checkos()
 		 which pacman >/dev/null 2>&1 && { echo arch; return;  }
 		 which emerge >/dev/null 2>&1 && { echo gentoo; return;  }
 		 which tazpkg >/dev/null 2>&1 && { echo slitaz; return;  }
+		 which xbps >/dev/null 2>&1 && { echo void; return;  }
 		 ;;
 	  Darwin )
 		 DARWIN=1

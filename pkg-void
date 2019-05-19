@@ -66,26 +66,25 @@ case "$command" in
         ;;
 #...........................................
 	install)
-		$sudo tazpkg get-install "$@"
+		$sudo xbps-install -S "$@"
 		;;
 	remove)
-		$sudo tazpkg remove  "$@"
+		$sudo xbps-remove   "$@"
 		;;
 	update)
-		$sudo tazpkg upgrade
+		$sudo xbps-install -Su
 		;;
 	search)
-		tazpkg search "$@"
+		xbps-query -Rs "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   tazpkg search-file $i 2> /dev/null; fi;  done
+		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then xbps-query -R -o  $i 2> /dev/null; fi;  done
 		;;
 	info)
-		tazpkg info "$@"
-		tazpkg desc "$@"
+		xbps-query -R "$@"		
 		;;	
 	list|files)
-		tazpkg list-files "$@"
+		xbps-query -R -f  "$@"
 		;;			
 #...........................................
 *)

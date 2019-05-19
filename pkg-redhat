@@ -34,8 +34,14 @@ Commands:
 		Check for updates & upgrade. equivalent to update+upgrade
 		Update catalog then Upgrade Packages - Install packages which have an older version already installed
 
-	locate|belong
+	locate or belong
 		Query the package which provides FILE
+
+	info
+		print information about a package - print description of a package
+		
+	list or files 
+		list the files installed with a package
 
 	version
 		version of that tool and the underlying package manager
@@ -73,6 +79,12 @@ case "$command" in
 		;;
 	locate|belong)
 		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   dnf provides $i 2> /dev/null; fi;  done
+		;;
+	info)
+		echo "not supported ?"
+		;;	
+	list|files)
+		rpm -ql "$@"
 		;;
 #...........................................
 *)
