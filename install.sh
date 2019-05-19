@@ -24,6 +24,8 @@ checkos()
 		 which emerge >/dev/null 2>&1 && { echo gentoo; return;  }
 		 which tazpkg >/dev/null 2>&1 && { echo slitaz; return;  }
 		 which xbps >/dev/null 2>&1 && { echo void; return;  }
+		 which pkg_add >/dev/null 2>&1 && { echo openbsd; return;  }
+		 which brew >/dev/null 2>&1 && { echo macos; return;  }
 		 ;;
 	  Darwin )
 		 DARWIN=1

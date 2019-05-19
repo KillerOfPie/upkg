@@ -1,0 +1,97 @@
+#!/bin/bash -
+#===============================================================================
+#
+#          FILE: pkg
+#
+#   DESCRIPTION: Universal package manager command line
+#
+#        AUTHOR: Nadir Boussoukaia
+#       CREATED: 04/04/2019
+#
+#      	  NOTES:
+#                see also: https://wiki.archlinux.org/index.php/Pacman/Rosetta
+#
+#===============================================================================
+
+VERSION=0.3
+
+USAGE=$(cat <<ENDSTR
+
+Usage: ${0/\.\//} <command> [arguments]
+
+Commands:
+
+	install
+		Install a package(s) by name
+
+	remove
+		Remove a package(s) by name
+
+	search
+		search for package(s) by name
+
+	update
+		Check for updates & upgrade. equivalent to update+upgrade
+		Update catalog then Upgrade Packages - Install packages which have an older version already installed
+
+	locate or belong
+		Query the package which provides FILE
+
+	info
+		print information about a package - print description of a package
+		
+	list or files 
+		list the files installed with a package
+
+	version
+		version of that tool and the underlying package manager
+
+
+ENDSTR
+)
+
+[ $# = 0 ] && echo "${USAGE}" && exit 1
+
+sudo=$(which sudo|cut -d ':' -f 2)
+if [ $(id -u) -eq 0 ]; then sudo=""; fi
+
+command="$1"
+shift
+case "$command" in
+    version)
+        echo $VERSION
+        ;;
+    help|--help)
+        echo  "${USAGE}"
+        ;;
+#...........................................
+	install)
+		$sudo brew install "$@"
+		;;
+	remove)
+		$sudo brew uninstall  "$@"
+		;;
+	update)
+		$sudo brew upgrade 
+		;;
+	search)
+		brew search "$@"
+		;;
+	locate|belong)
+		echo "not supported for now"
+		;;
+	info)
+		brew desc "$@"
+		;;	
+	list|files)
+		echo "not supported for now"
+		;;			
+#...........................................
+*)
+	echo Unknown command: "$1"
+	echo "$USAGE"
+	exit 1
+	;;
+esac
+
+

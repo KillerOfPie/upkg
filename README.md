@@ -7,8 +7,8 @@ A **universal package manager** for Linux (command line).
 
 You can see it as a package manager proxy: This is just a script, voluntarily kept simple to that you can check what it does in 1 minute.
 
-> **Supports**:  dnf, yum, zypper, apt-get, pacman, emerge, tazpkg,  xbps  (mostly untested, this is alpha version)    
-> So all flavors of: Arch, Red Hat/Fedora, Debian/Ubuntu, SLES/openSUSE, Gentoo/calculate, Slitaz, Void linux
+> **Supports**:  dnf, yum, zypper, apt-get, pacman, emerge, tazpkg, xbps, pkg_add, brew (mostly untested, this is alpha version)    
+> So all flavors of: Arch, Red Hat/Fedora, Debian/Ubuntu, SLES/openSUSE, Gentoo/calculate, Slitaz, Void linux, openBSD, MacOS
 
 ## How To Install?
 
