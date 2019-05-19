@@ -31,16 +31,16 @@ Commands:
 		search for package(s) by name
 
 	update
-		Check for updates & upgrade. equivalent to update+upgrade
-		Update catalog then Upgrade Packages - Install packages which have an older version already installed
+		Update local catalog then Upgrade Packages ->
+		Upgrades installed packages which have a newer version 
 
-	locate or belong
-		Query the package which provides FILE
+	locate FILE
+		Find the package which provides FILE
 
 	info
-		print information about a package - print description of a package
+		Print information about a package
 		
-	list or files 
+	list 
 		list the files installed with a package
 
 	version
@@ -71,7 +71,7 @@ case "$command" in
 	remove)
 		$sudo xbps-remove   "$@"
 		;;
-	update)
+        update|upgrade)
 		$sudo xbps-install -Su
 		;;
 	search)
