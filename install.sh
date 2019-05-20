@@ -1,4 +1,4 @@
-#!/bin/sh                                                                                                                                                  
+#!/bin/sh
 #===============================================================================
 #          FILE: pkg installer
 #   DESCRIPTION: Universal Installer for package manager command line
@@ -29,7 +29,7 @@ checkos()
 		 which pacman >/dev/null 2>&1 && { echo arch; return;  }
 		 which emerge >/dev/null 2>&1 && { echo gentoo; return;  }
 		 which tazpkg >/dev/null 2>&1 && { echo slitaz; return;  }
-		 which xbps >/dev/null 2>&1 && { echo void; return;  }
+		 which xbps-install >/dev/null 2>&1 && { echo void; return;  }
 		 which pkg_add >/dev/null 2>&1 && { echo openbsd; return;  }
 		 which brew >/dev/null 2>&1 && { echo macos; return;  }
 		 ;;
