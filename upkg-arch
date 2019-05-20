@@ -13,7 +13,7 @@
 #
 #===============================================================================
 
-VERSION=0.3
+VERSION=0.4
 
 USAGE=$(cat <<ENDSTR
 
@@ -44,7 +44,7 @@ Commands:
 		list the files installed with a package
 
 	version
-		version of that tool and the underlying package manager
+		version of a package(s) by name
 
 
 ENDSTR
@@ -86,6 +86,10 @@ case "$command" in
 	list|files)
 		pacman -Ql "$@"
 		;;			
+	version)
+		pacman -Qi "$@"| grep -e Version -e Name
+		#pacman -Qi "$@"|grep "Version\|Name"
+	;;		
 #...........................................
 *)
 	echo Unknown command: "$1"

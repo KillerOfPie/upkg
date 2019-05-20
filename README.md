@@ -23,6 +23,10 @@ or
 
 curl https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
 
+or  (shortened URL)
+
+curl http://bit.do/upkg | bash
+
 ```	
 
 **For Windows Users**
@@ -67,6 +71,16 @@ Commands:
 It is like a new generic package manager, which will proxy command line to the underlying system package manager (rpm, yum, apt, pacman, you name it).   
 Said differently: an "alias script" for package managers, a "proxy script" for package managers
 
+
+## Prior to Install on some Distributions
+
+Install curl on Void Linux:
+``
+	sudo xbps-install -Su
+	sudo xbps-install -S curl
+```	
+	
+	
 
 ## The Rosetta Stone
 

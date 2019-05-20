@@ -13,7 +13,7 @@
 #
 #===============================================================================
 
-VERSION=0.3
+VERSION=0.4
 
 USAGE=$(cat <<ENDSTR
 
@@ -44,7 +44,7 @@ Commands:
 		list the files installed with a package
 
 	version
-		version of that tool and the underlying package manager
+		version of a package(s) by name
 
 
 ENDSTR
@@ -58,9 +58,6 @@ if [ $(id -u) -eq 0 ]; then sudo=""; fi
 command="$1"
 shift
 case "$command" in
-    version)
-        echo $VERSION
-        ;;
     help|--help)
         echo  "${USAGE}"
         ;;
@@ -78,7 +75,7 @@ case "$command" in
 		xbps-query -Rs "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then xbps-query -R -o  $i 2> /dev/null; fi;  done
+		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then xbps-query -o  $i 2> /dev/null; fi;  done
 		;;
 	info)
 		xbps-query -R "$@"		
@@ -86,6 +83,9 @@ case "$command" in
 	list|files)
 		xbps-query -R -f  "$@"
 		;;			
+    	version)
+        	xbps-query -R "$@" |grep "pkgver"
+        ;;
 #...........................................
 *)
 	echo Unknown command: "$1"
