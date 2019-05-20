@@ -1,13 +1,13 @@
 
-## What is it? 
+## What is it?
 
-A **universal package manager** for Linux (a **wrapper** for the command line).  
-**Goal**: Same syntax for all flavors of Linux for most frequent tasks.    
-**Name**: **upkg**  (or **rosetta** or better idea?  --> I plan to ask for the name at install).  
+A **universal package manager** for Linux (a **wrapper** for the command line).
+**Goal**: Same syntax for all flavors of Linux for most frequent tasks.
+**Name**: **upkg**  (or **rosetta** or better idea?  --> I plan to ask for the name at install).
 
 This is a package manager wrapper, or say a proxy: This is just a script, voluntarily kept simple to that you can check what it does in 1 minute.
 
-> **Supports**:  dnf, yum, zypper, apt-get, pacman, emerge, tazpkg, xbps, pkg_add, brew (mostly untested, this is alpha version)    
+> **Supports**:  dnf, yum, zypper, apt-get, pacman, emerge, tazpkg, xbps, pkg_add, brew (mostly untested, this is alpha version)
 > So all flavors of: Arch, Red Hat/Fedora, Debian/Ubuntu, SLES/openSUSE, Gentoo/calculate, Slitaz, Void linux, openBSD, MacOS
 
 ## How To Install?
@@ -25,13 +25,14 @@ curl https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/ma
 
 or  (shortened URL)
 
-curl http://bit.do/upkg | bash
+curl -L http://bit.do/upkg | sh
 
-```	
+
+```
 
 **For Windows Users**
 - Format your disk & install Linux
-- proceed to the previous section 
+- proceed to the previous section
 
 ## What will you get?
 
@@ -48,27 +49,27 @@ Commands:
 	remove
 		Remove a package(s) by name
 
-	search  
+	search
 		search for package(s) by name
 
-	update   
+	update
 		Update local catalog then Upgrade Packages ->
-		Upgrades installed packages which have a newer version 
+		Upgrades installed packages which have a newer version
 
 	locate FILE
 		Find the package which provides FILE
 
 	info
 		Print information about a package
-		
-	list  
+
+	list
 		list the files installed with a package
 
 	version
-		version of that tool and the underlying package manager
+		version of a package(s) by name
 
 ```
-It is like a new generic package manager, which will proxy command line to the underlying system package manager (rpm, yum, apt, pacman, you name it).   
+It is like a new generic package manager, which will proxy command line to the underlying system package manager (rpm, yum, apt, pacman, you name it).
 Said differently: an "alias script" for package managers, a "proxy script" for package managers
 
 
@@ -78,13 +79,13 @@ Install curl on Void Linux:
 ``
 	sudo xbps-install -Su
 	sudo xbps-install -S curl
-```	
-	
-	
+```
+
+
 
 ## The Rosetta Stone
 
-The famous Arch Linux's **Pacman Rosetta** gave me the idea of this tool, I wrote it several years later.  
+The famous Arch Linux's **Pacman Rosetta** gave me the idea of this tool, I wrote it several years later.
 But above all: that weird syntax of basic commands on Arch (pacman).
 
 > see here: https://wiki.archlinux.org/index.php/Pacman/Rosetta

@@ -13,7 +13,7 @@
 #
 #===============================================================================
 
-VERSION=0.3
+VERSION=0.4
 
 USAGE=$(cat <<ENDSTR
 
@@ -44,7 +44,7 @@ Commands:
 		list the files installed with a package
 
 	version
-		version of that tool and the underlying package manager
+		version of a package(s) by name
 
 
 ENDSTR
@@ -58,9 +58,6 @@ if [ $(id -u) -eq 0 ]; then sudo=""; fi
 command="$1"
 shift
 case "$command" in
-    version)
-        echo $VERSION
-        ;;
     help|--help)
         echo  "${USAGE}"
         ;;
@@ -78,14 +75,16 @@ case "$command" in
 		tazpkg search "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   tazpkg search-file $i 2> /dev/null; fi;  done
+		tazpkg search-file "$@"
 		;;
 	info)
 		tazpkg info "$@"
-		tazpkg desc "$@"
 		;;	
 	list|files)
 		tazpkg list-files "$@"
+		;;
+    version)
+		tazpkg info "$@" | grep Version
 		;;			
 #...........................................
 *)

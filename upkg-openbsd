@@ -1,4 +1,4 @@
-#!/bin/bash -
+#!/bin/sh -
 #===============================================================================
 #
 #          FILE: pkg
@@ -13,11 +13,11 @@
 #
 #===============================================================================
 
-VERSION=0.3
+VERSION=0.4
 
 USAGE=$(cat <<ENDSTR
 
-Usage: ${0/\.\//} <command> [arguments]
+Usage: $0 <command> [arguments]
 
 Commands:
 
@@ -32,19 +32,19 @@ Commands:
 
 	update
 		Update local catalog then Upgrade Packages ->
-		Upgrades installed packages which have a newer version 
+		Upgrades installed packages which have a newer version
 
 	locate FILE
 		Find the package which provides FILE
 
 	info
 		Print information about a package
-		
-	list 
+
+	list
 		list the files installed with a package
 
 	version
-		version of that tool and the underlying package manager
+		version of a package(s) by name
 
 
 ENDSTR
@@ -52,15 +52,12 @@ ENDSTR
 
 [ $# = 0 ] && echo "${USAGE}" && exit 1
 
-sudo=$(which sudo|cut -d ':' -f 2)
+sudo=$(which sudo > /dev/null 2>&1 |cut -d ':' -f 2)
 if [ $(id -u) -eq 0 ]; then sudo=""; fi
 
 command="$1"
 shift
 case "$command" in
-    version)
-        echo $VERSION
-        ;;
     help|--help)
         echo  "${USAGE}"
         ;;
@@ -72,20 +69,23 @@ case "$command" in
 		$sudo pkg_delete  "$@"
 		;;
         update|upgrade)
-		$sudo pkg_add -u 
+		$sudo pkg_add -u
 		;;
 	search)
-		pkg_search "$@"
+		pkg_info -Q  "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   pkg_info $i 2> /dev/null; fi;  done
+		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   pkg_info -E $i 2> /dev/null; fi; done
 		;;
 	info)
-		echo "not supported for now"
-		;;	
+		  pkg_info "$@"
+		;;
 	list|files)
-		echo "not supported for now"
+		 pkg_info -L "$@"
 		;;			
+    	version)
+        	pkg_info -c  "$@" |grep "Information"
+		;;
 #...........................................
 *)
 	echo Unknown command: "$1"
