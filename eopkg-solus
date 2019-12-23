@@ -58,18 +58,18 @@ case "$command" in
                 $sudo eopkg rm  "$@"
 		;;
         update|upgrade)
-#                $sudo eopkg ur # extra step not needed
+                $sudo eopkg ur
                 $sudo eopkg up
 		;;
 	search)
 		eopkg sr  "$@"
 		;;
 	# not sure about this yet, testing
-  #locate|belong)
-  #              for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then  dpkg -S $i 2> /dev/null; fi;  done
+  locate|belong)
+  		eopkg search-file "$@"
 		;;
 	info)
-		eopkg nifo "$@"
+		eopkg info "$@"
 		;;
 	list|files)
 		eopkg search-file "$@"
