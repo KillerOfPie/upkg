@@ -1,6 +1,6 @@
 #!/bin/sh
 #===============================================================================
-#          FILE: pkg installer
+#          FILE: upkg installer
 #   DESCRIPTION: Universal Installer for package manager command line
 #
 #        AUTHOR: Nadir Boussoukaia
@@ -29,21 +29,23 @@ checkos()
 	which xbps-install >/dev/null 2>&1 && { echo void; return;  }
 	which pkg_add >/dev/null 2>&1 && { echo openbsd; return;  }
 	which brew >/dev/null 2>&1 && { echo macos; return;  }
+	which eopkg >/dev/null 2>&1 && { echo solus; return;  }
 	echo unknown;
-}  
+}
 ##################################### End Function Definitions
+
 echo "----------------------------------------------"
 # Call checkos to detect Linux package manager flavor
 os=$(checkos) && echo "OS detected: $os"
 
 if [ $os = "unknown" ]; then
-   	echo -e "Not installed\n[WARNING] This script is not supported (yet) on MacOS or freeBSD"  	
+   	echo -e "Not installed\n[WARNING] This script is not supported (yet) on MacOS or freeBSD"
 	exit -1
-fi 
+fi
 
 if exists wget; then
 wget -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 2> /dev/null
-else 
+else
 	if exists curl; then
 		curl -o $TMPFILE https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 2> /dev/null
 	fi
