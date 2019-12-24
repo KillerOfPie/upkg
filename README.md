@@ -3,7 +3,7 @@
 
 
 **upkg** is a **universal package manager** for Linux (a **wrapper** for the command line).
-- **Goal**: Same syntax for most frequent tasks on all flavors of Linux 
+- **Goal**: Same syntax for most frequent tasks on all flavors of Linux
 - **Name**: **upkg**  (or **rosetta** or better idea?  --> I plan to ask for the name at install, why not?).
 
 This is a package manager wrapper, or say a proxy: This is just a script, voluntarily kept simple to that you can check what it does in 1 minute.
@@ -28,7 +28,7 @@ where command is:
 		Remove a package(s) by name
 
 	search
-		search for package(s) by name
+		Search for package(s) by name
 
 	update
 		Update local catalog then Upgrade Packages ->
@@ -41,16 +41,16 @@ where command is:
 		Print information about a package
 
 	list
-		list the files installed with a package
+		List the files installed with a package
 
 	version
-		version of a package(s) by name
+		Gives the version number of a package(s) by name
 
 ```
 It is like a new generic package manager, which will proxy command line to the underlying system package manager (rpm, yum, apt, pacman, you name it).
 Said differently: an "alias script" for package managers, a "proxy script" for package managers
 
-> Note: the final installed script is named upkg-XXX where XXX is your distro.   
+> Note: the final installed script is named upkg-XXX where XXX is your distro.
 > You can check the file in this repo, or directly download it to avoid the installer
 
 
@@ -90,8 +90,8 @@ Install curl on Void Linux:
 
 ## The Rosetta Stone
 
-The famous Arch Linux's **Pacman Rosetta** gave me the idea for this tool. I wrote it several years later.   
-Above all: that weird syntax for basic commands on Arch Linux (pacman) mainly motivated me 
+The famous Arch Linux's **Pacman Rosetta** gave me the idea for this tool. I wrote it several years later.
+Above all: that weird syntax for basic commands on Arch Linux (pacman) mainly motivated me
 
 > see here: https://wiki.archlinux.org/index.php/Pacman/Rosetta
 
@@ -113,7 +113,7 @@ Above all: that weird syntax for basic commands on Arch Linux (pacman) mainly mo
 |                       | `yum list available`          | `apt-cache dumpavail`         | `pacman -Sl`                      |
 | `rpm2cpio bash.rpm \| cpio -diu` |                     | `dpkg -x bash.deb $PWD`       | `tar -xzf bash.pkg.tar.xz`        |
 
-Other sources: 
+Other sources:
 
 * http://cupcakecarnival.net/2009/02/17/debian-equivalent-rpm-based-system-commands
 * http://wiki.debian.org/RPM
@@ -121,3 +121,7 @@ Other sources:
 * https://wiki.archlinux.org/index.php/Pacman/Rosetta_(简体中文)
 * https://wiki.archlinux.org/index.php/Pacman/Rosetta
 
+
+## Test coverage
+
+see https://github.com/Inducido/upkg-package-manager-rosetta-stone/blob/master/os_test_coverage.md
