@@ -55,13 +55,15 @@ fi
 # if the download is successful, move it to the destination folder and report it
 if [ -s $TMPFILE ]; then
         echo "This installer Will copy the script '$NAME' into $TARGET";
-        sudo=$(which sudo>/dev/null 2>&1|cut -d ':' -f 2)
+        sudo=$(which sudo 2>/dev/null|cut -d ':' -f 2)
         if [ $(id -u) -eq 0 ]; then sudo=""; fi
 
         $sudo mv $TMPFILE $TARGET/$NAME && $sudo chmod +x $TARGET/$NAME
+	if [ -z $TARGET/$NAME ]; then
         echo "----------------------------------------------"
         echo "$NAME $(grep VERSION $TARGET/$NAME|head -1|cut -d '=' -f 2) has been installed."
         echo "( full path: $TARGET/$NAME )"
         echo "-> try '$NAME' or '$NAME help' to check it out."
         echo ""
+	fi
 fi
