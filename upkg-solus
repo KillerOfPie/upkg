@@ -11,10 +11,12 @@
 #
 #      	  NOTES:
 #                see also: https://getsol.us/articles/package-management/basics/en/
+#                This script is designed to be standalone.
+#                This script is designed to be renamed the way you like.
 #
 #===============================================================================
 
-VERSION=0.1
+VERSION=0.5
 
 USAGE=$(cat <<ENDSTR
 Usage: ${0/\.\//} <command> [arguments]
@@ -24,7 +26,8 @@ Commands:
 	remove
 		Remove a package(s) by name
 	search
-		search for package(s) by name
+		Search for package(s) by name
+
 	update
 		Update local catalog then Upgrade Packages ->
 		Upgrades installed packages which have a newer version
@@ -33,13 +36,14 @@ Commands:
 	info
 		Print information about a package
 	list
-		list the files installed with a package
+		List the files installed with a package
+
 	version
-		version of a package(s) by name
+		Gives the version number of a package(s) by name
+		
+-		
 ENDSTR
 )
-
-[ $# = 0 ] && echo "${USAGE}" && exit 1
 
 sudo=$(which sudo|cut -d ':' -f 2)
 if [ $(id -u) -eq 0 ]; then sudo=""; fi
@@ -78,9 +82,8 @@ case "$command" in
 		eopkg blame "$@" # | grep Installed
         ;;
 #...........................................
-*)
-	echo Unknown command: "$1"
-	echo "$USAGE"
-	exit 1
-	;;
+	*)
+		[ -z $command ] || echo Unknown command: $command
+		echo "$USAGE"
+		;;
 esac

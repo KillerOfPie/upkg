@@ -43,6 +43,7 @@ if [ $os = "unknown" ]; then
 	exit -1
 fi
 
+# get the proper upkg script, using wget or curl depending on the OS, into a temporary location
 if exists wget; then
 wget -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 2> /dev/null
 else
@@ -51,6 +52,7 @@ else
 	fi
 fi
 
+# if the download is successful, move it to the destination folder and report it
 if [ -s $TMPFILE ]; then
         echo "This installer Will copy the script '$NAME' into $TARGET";
         sudo=$(which sudo>/dev/null 2>&1|cut -d ':' -f 2)

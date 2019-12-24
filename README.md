@@ -1,38 +1,16 @@
 
-## What is it?
+## UPKG : What is it?
 
-A **universal package manager** for Linux (a **wrapper** for the command line).
-**Goal**: Same syntax for all flavors of Linux for most frequent tasks.
-**Name**: **upkg**  (or **rosetta** or better idea?  --> I plan to ask for the name at install).
+
+**upkg** is a **universal package manager** for Linux (a **wrapper** for the command line).
+- **Goal**: Same syntax for most frequent tasks on all flavors of Linux 
+- **Name**: **upkg**  (or **rosetta** or better idea?  --> I plan to ask for the name at install, why not?).
 
 This is a package manager wrapper, or say a proxy: This is just a script, voluntarily kept simple to that you can check what it does in 1 minute.
 
 > **Supports**:  dnf, yum, zypper, apt-get, pacman, emerge, tazpkg, xbps, pkg_add, brew (mostly untested, this is alpha version)
 > So all flavors of: Arch, Red Hat/Fedora, Debian/Ubuntu, SLES/openSUSE, Gentoo/calculate, Slitaz, Void linux, openBSD, MacOS
 
-## How To Install?
-
-**For Linux Users**
-- Use the single line installer command line below (Debian has wget, Red Hat has curl by default)
-- cut and paste in a terminal (you will be asked for sudo):
-
-```
-wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
-
-or
-
-curl https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
-
-or  (shortened URL)
-
-curl -L http://bit.do/upkg | sh
-
-
-```
-
-**For Windows Users**
-- Format your disk & install Linux
-- proceed to the previous section
 
 ## What will you get?
 
@@ -41,7 +19,7 @@ Same syntax for a package manager whatever the distribution:
 ```
 Usage: upkg <command> [arguments]
 
-Commands:
+where command is:
 
 	install
 		Install a package(s) by name
@@ -72,11 +50,38 @@ Commands:
 It is like a new generic package manager, which will proxy command line to the underlying system package manager (rpm, yum, apt, pacman, you name it).
 Said differently: an "alias script" for package managers, a "proxy script" for package managers
 
+> Note: the final installed script is named upkg-XXX where XXX is your distro.   
+> You can check the file in this repo, or directly download it to avoid the installer
 
-## Prior to Install on some Distributions
+
+## How To Install?
+
+**For Linux Users**
+- Use the single line installer command line below (Debian has wget, Red Hat has curl by default)
+- cut and paste in a terminal (you will be asked for sudo):
+
+```
+wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+or
+curl https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+
+alternative  (shortened URL)
+
+curl -L http://bit.do/upkg | sh
+
+
+```
+
+**For Windows Users**
+- Format your disk & install Linux
+- proceed to the previous section
+
+
+## Prior to Install on some distributions
 
 Install curl on Void Linux:
-``
+
+```
 	sudo xbps-install -Su
 	sudo xbps-install -S curl
 ```
@@ -85,8 +90,8 @@ Install curl on Void Linux:
 
 ## The Rosetta Stone
 
-The famous Arch Linux's **Pacman Rosetta** gave me the idea of this tool, I wrote it several years later.
-But above all: that weird syntax of basic commands on Arch (pacman).
+The famous Arch Linux's **Pacman Rosetta** gave me the idea for this tool. I wrote it several years later.   
+Above all: that weird syntax for basic commands on Arch Linux (pacman) mainly motivated me 
 
 > see here: https://wiki.archlinux.org/index.php/Pacman/Rosetta
 
@@ -108,8 +113,11 @@ But above all: that weird syntax of basic commands on Arch (pacman).
 |                       | `yum list available`          | `apt-cache dumpavail`         | `pacman -Sl`                      |
 | `rpm2cpio bash.rpm \| cpio -diu` |                     | `dpkg -x bash.deb $PWD`       | `tar -xzf bash.pkg.tar.xz`        |
 
+Other sources: 
+
 * http://cupcakecarnival.net/2009/02/17/debian-equivalent-rpm-based-system-commands
 * http://wiki.debian.org/RPM
 * https://help.ubuntu.com/community/SwitchingToUbuntu/FromLinux/RedHatEnterpriseLinuxAndFedora
 * https://wiki.archlinux.org/index.php/Pacman/Rosetta_(简体中文)
 * https://wiki.archlinux.org/index.php/Pacman/Rosetta
+

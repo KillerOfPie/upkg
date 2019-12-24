@@ -1,7 +1,7 @@
 #!/bin/bash -
 #===============================================================================
 #
-#          FILE: pkg
+#          FILE: upkg
 #
 #   DESCRIPTION: Universal package manager command line
 #
@@ -10,10 +10,12 @@
 #
 #      	  NOTES:
 #                see also: https://wiki.archlinux.org/index.php/Pacman/Rosetta
+#                This script is designed to be standalone.
+#                This script is designed to be renamed the way you like.
 #
 #===============================================================================
 
-VERSION=0.4
+VERSION=0.5
 
 USAGE=$(cat <<ENDSTR
 
@@ -28,42 +30,40 @@ Commands:
 		Remove a package(s) by name
 
 	search
-		search for package(s) by name
+		Search for package(s) by name
 
 	update
 		Update local catalog then Upgrade Packages ->
-		Upgrades installed packages which have a newer version 
+		Upgrades installed packages which have a newer version
 
 	locate FILE
 		Find the package which provides FILE
 
 	info
 		Print information about a package
-		
-	list 
-		list the files installed with a package
+
+	list
+		List the files installed with a package
 
 	version
-		version of a package(s) by name
-
-
+		Gives the version number of a package(s) by name
+		
+-		
 ENDSTR
 )
 
-[ $# = 0 ] && echo "${USAGE}" && exit 1
-
-sudo=$(which sudo|cut -d ':' -f 2)
+sudo=$(which sudo > /dev/null 2>&1 |cut -d ':' -f 2)
 if [ $(id -u) -eq 0 ]; then sudo=""; fi
 
 command="$1"
 shift
 case "$command" in
-    version)
-        echo $VERSION
-        ;;
-    help|--help)
-        echo  "${USAGE}"
-        ;;
+
+	help|--help)
+        	echo $VERSION
+		echo "$USAGE"
+		;;
+
 #...........................................
 	install)
 		$sudo pacman -S --needed "$@"
@@ -82,20 +82,19 @@ case "$command" in
 		;;
 	info)
 		pacman -Si "$@"
-		;;	
+		;;
 	list|files)
 		pacman -Ql "$@"
-		;;			
+		;;
 	version)
 		pacman -Qi "$@"| grep -e Version -e Name
 		#pacman -Qi "$@"|grep "Version\|Name"
-	;;		
-#...........................................
-*)
-	echo Unknown command: "$1"
-	echo "$USAGE"
-	exit 1
 	;;
+#...........................................
+	*)
+		[ -z $command ] || echo Unknown command: $command
+		echo "$USAGE"
+		;;
 esac
 
 
