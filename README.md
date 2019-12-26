@@ -2,7 +2,8 @@
 ## UPKG : What is it?
 
 
-**upkg** is a **universal package manager** for Linux (a **wrapper** for the command line).
+**upkg** is a **universal package manager** for Linux (a **wrapper** for the command line)
+
 - **Goal**: Same syntax for most frequent tasks on all flavors of Linux
 - **Name**: **upkg**  (or **rosetta** or better idea?  --> I plan to ask for the name at install, why not?).
 
@@ -61,13 +62,13 @@ Said differently: an "alias script" for package managers, a "proxy script" for p
 - cut and paste in a terminal (you will be asked for sudo):
 
 ```
-wget -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+wget  --no-check-certificate  -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
 or
-curl https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+curl -k https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
 
 alternative  (shortened URL)
 
-curl -L http://bit.do/upkg | sh
+curl -L -k http://bit.do/upkg | sh
 
 
 ```

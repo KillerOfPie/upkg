@@ -44,11 +44,16 @@ if [ $os = "unknown" ]; then
 fi
 
 # get the proper upkg script, using wget or curl depending on the OS, into a temporary location
-if exists wget; then
-wget -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 2> /dev/null
+#if exists wget; then
+if [  ! -z $(which wget) ] ; then
+	wget --no-check-certificate -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 
 else
-	if exists curl; then
-		curl -o $TMPFILE https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 2> /dev/null
+	#if exists curl; then
+	if [  ! -z $(which curl) ] ; then
+		curl -k -o $TMPFILE https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 
+	else
+		echo please install curl or wget in order to download it
+		exit 
 	fi
 fi
 
