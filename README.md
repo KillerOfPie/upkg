@@ -61,14 +61,23 @@ Said differently: an "alias script" for package managers, a "proxy script" for p
 - Use the single line installer command line below (Debian has wget, Red Hat has curl by default)
 - cut and paste in a terminal (you will be asked for sudo):
 
+Shortened URL(uses a proxy): 
+
 ```
-wget  --no-check-certificate  -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+bash <(curl -sLk https://inducido.com/upkg/install)
+
 or
-curl -k https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
 
-alternative  (shortened URL)
+curl -sLk http://bit.do/upkg | sh
 
-curl -L -k http://bit.do/upkg | sh
+```
+
+Longer (but directly to the repo):
+
+```
+wget --quiet --no-check-certificate  -O - https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
+or
+curl -sk https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh | bash
 
 
 ```
@@ -78,7 +87,7 @@ curl -L -k http://bit.do/upkg | sh
 - proceed to the previous section
 
 
-## Prior to Install on some distributions
+## Prior to Installation (on some distributions)
 
 Install curl on Void Linux:
 

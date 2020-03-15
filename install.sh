@@ -44,13 +44,27 @@ if [ $os = "unknown" ]; then
 fi
 
 # get the proper upkg script, using wget or curl depending on the OS, into a temporary location
+
+#if exists curl; then
+if [  ! -z $(which curl) ] ; then
+	curl -sLk -o $TMPFILE https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 
+else
+	#if exists wget; then
+	if [  ! -z $(which wget) ] ; then
+		wget --quiet --no-check-certificate -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 
+	else
+		echo please install curl or wget in order to download it
+		exit 
+	fi
+fi
+
 #if exists wget; then
 if [  ! -z $(which wget) ] ; then
-	wget --no-check-certificate -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 
+	wget --quiet --no-check-certificate -O $TMPFILE  https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 
 else
 	#if exists curl; then
 	if [  ! -z $(which curl) ] ; then
-		curl -k -o $TMPFILE https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 
+		curl -sLk -o $TMPFILE https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/upkg-$os 
 	else
 		echo please install curl or wget in order to download it
 		exit 
@@ -59,16 +73,17 @@ fi
 
 # if the download is successful, move it to the destination folder and report it
 if [ -s $TMPFILE ]; then
-        echo "This installer Will copy the script '$NAME' into $TARGET";
+        echo "This installer is copying the script '$NAME' into $TARGET ( full path: $TARGET/$NAME )"
+        echo "(Review the code: https://github.com/Inducido/upkg-package-manager-rosetta-stone => install.sh)"
         sudo=$(which sudo 2>/dev/null|cut -d ':' -f 2)
         if [ $(id -u) -eq 0 ]; then sudo=""; fi
 
         $sudo mv $TMPFILE $TARGET/$NAME && $sudo chmod +x $TARGET/$NAME
-	if [ -z $TARGET/$NAME ]; then
-        echo "----------------------------------------------"
-        echo "$NAME $(grep VERSION $TARGET/$NAME|head -1|cut -d '=' -f 2) has been installed."
-        echo "( full path: $TARGET/$NAME )"
-        echo "-> try '$NAME' or '$NAME help' to check it out."
-        echo ""
+
+	if [ -x $TARGET/$NAME ]; then
+	        echo "----------------------------------------------"
+        	echo "$NAME $(grep VERSION $TARGET/$NAME|head -1|cut -d '=' -f 2) has been installed."
+	        echo "-> try '$NAME' or '$NAME help' to check it out."
+	        echo ""
 	fi
 fi
