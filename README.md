@@ -1,3 +1,16 @@
+## Install quickie ;-)
+
+Shortened URL (uses a proxy): 
+
+```
+curl -sLk https://inducido.com/upkg/install | sh
+
+```
+
+
+This is shortened URL (uses a proxy) to 
+```https://raw.githubusercontent.com/Inducido/package-manager-rosetta-stone/master/install.sh```
+
 
 ## UPKG : What is it?
 
@@ -68,7 +81,7 @@ bash <(curl -sLk https://inducido.com/upkg/install)
 
 or
 
-curl -sLk http://bit.do/upkg | sh
+curl -sLk https://inducido.com/upkg/install | sh
 
 ```
 
