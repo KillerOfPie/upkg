@@ -4,7 +4,7 @@
 #          FILE: pkg
 #
 #   DESCRIPTION: Universal package manager command line
-#                Support for Solus Linux eopkg package manager
+#                Support for Solus Linux $cmd package manager
 #
 #        AUTHOR: Bert van der Lingen 
 #       CREATED: 12/22/2019
@@ -16,37 +16,17 @@
 #
 #===============================================================================
 
-VERSION=0.6
+VERSION=0.7
 
-USAGE=$(cat <<ENDSTR
-Usage: ${0/\.\//} <command> [arguments]
-Commands:
-	install
-		Install a package(s) by name
-	remove
-		Remove a package(s) by name
-	search
-		Search for package(s) by name
-
-	update
-		Update local catalog then Upgrade Packages ->
-		Upgrades installed packages which have a newer version
-	locate FILE
-		Find the package which provides FILE
-	info
-		Print information about a package
-	list
-		List the files installed with a package
-
-	version
-		Gives the version number of a package(s) by name
-		
--		
-ENDSTR
-)
+USAGE=$(eval "cat <<EOF
+$(<./help)
+EOF
+")
 
 sudo=$(which sudo 2> /dev/null|cut -d ':' -f 2)
 if [ $(id -u) -eq 0 ]; then sudo=""; fi
+
+cmd="eopkg"
 
 command="$1"
 shift
@@ -57,31 +37,34 @@ case "$command" in
         ;;
 #...........................................
 	install)
-                $sudo eopkg it "$@"
+        $sudo $cmd it "$@"
 		;;
 	remove)
-                $sudo eopkg rm  "$@"
+        $sudo $cmd rm  "$@"
 		;;
-        update|upgrade)
-                $sudo eopkg ur
-                $sudo eopkg up
+    update|upgrade)
+        $sudo $cmd ur
+        $sudo $cmd up
 		;;
 	search)
-		eopkg sr  "$@"
+		$cmd sr  "$@"
 		;;
 	# not sure about this yet, testing
-  locate|belong)
-  		eopkg search-file "$@"
+  	locate|belong)
+  		$cmd search-file "$@"
 		;;
 	info)
-		eopkg info "$@"
+		$cmd info "$@"
 		;;
 	list|files)
-		eopkg search-file "$@"
+		$cmd search-file "$@"
 		;;
     version)
-		eopkg blame "$@" # | grep Installed
+		$cmd blame "$@" # | grep Installed
         ;;
+	manager)
+		echo $cmd
+		;;
 #...........................................
 	*)
 		[ -z $command ] || echo Unknown command: $command

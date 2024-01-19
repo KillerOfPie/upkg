@@ -15,45 +15,17 @@
 #
 #===============================================================================
 
-VERSION=0.6
+VERSION=0.7
 
-USAGE=$(cat <<ENDSTR
-
-Usage: $0 <command> [arguments]
-
-Commands:
-
-	install
-		Install a package(s) by name
-
-	remove
-		Remove a package(s) by name
-
-	search
-		Search for package(s) by name
-
-	update
-		Update local catalog then Upgrade Packages ->
-		Upgrades installed packages which have a newer version
-
-	locate FILE
-		Find the package which provides FILE
-
-	info
-		Print information about a package
-
-	list
-		List the files installed with a package
-
-	version
-		Gives the version number of a package(s) by name
-		
--		
-ENDSTR
-)
+USAGE=$(eval "cat <<EOF
+$(<./help)
+EOF
+")
 
 sudo=$(which sudo 2> /dev/null|cut -d ':' -f 2)
 if [ $(id -u) -eq 0 ]; then sudo=""; fi
+
+cmd="pkg_"
 
 command="$1"
 shift
@@ -70,7 +42,7 @@ case "$command" in
 	remove)
 		$sudo pkg_delete  "$@"
 		;;
-        update|upgrade)
+    update|upgrade)
 		$sudo pkg_add -u
 		;;
 	search)
@@ -85,8 +57,11 @@ case "$command" in
 	list|files)
 		 pkg_info -L "$@"
 		;;
-    	version)
-        	pkg_info -c  "$@" |grep "Information"
+    version)
+        pkg_info -c  "$@" |grep "Information"
+		;;
+	manager)
+		echo $cmd
 		;;
 #...........................................
 	*)

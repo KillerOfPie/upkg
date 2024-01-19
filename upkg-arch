@@ -15,45 +15,17 @@
 #
 #===============================================================================
 
-VERSION=0.6
+VERSION=0.7
 
-USAGE=$(cat <<ENDSTR
-
-Usage: ${0/\.\//} <command> [arguments]
-
-Commands:
-
-	install
-		Install a package(s) by name
-
-	remove
-		Remove a package(s) by name
-
-	search
-		Search for package(s) by name
-
-	update
-		Update local catalog then Upgrade Packages ->
-		Upgrades installed packages which have a newer version
-
-	locate FILE
-		Find the package which provides FILE
-
-	info
-		Print information about a package
-
-	list
-		List the files installed with a package
-
-	version
-		Gives the version number of a package(s) by name
-		
--		
-ENDSTR
-)
+USAGE=$(eval "cat <<EOF
+$(<./help)
+EOF
+")
 
 sudo=$(which sudo 2> /dev/null|cut -d ':' -f 2)
 if [ $(id -u) -eq 0 ]; then sudo=""; fi
+
+cmd="pacman"
 
 command="$1"
 shift
@@ -66,30 +38,33 @@ case "$command" in
 
 #...........................................
 	install)
-		$sudo pacman -S --needed "$@"
+		$sudo $cmd -S --needed "$@"
 		;;
 	remove)
-		$sudo pacman -Rsn "$@"
+		$sudo $cmd -Rsn "$@"
 		;;
         update|upgrade)
-		$sudo pacman -Syyu
+		$sudo $cmd -Syyu
 		;;
 	search)
-		pacman -Ss  "$@"
+		$cmd -Ss  "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then pacman -Qo $i  2> /dev/null; fi; done
+		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then $cmd -Qo $i  2> /dev/null; fi; done
 		;;
 	info)
-		pacman -Si "$@"
+		$cmd -Si "$@"
 		;;
 	list|files)
-		pacman -Ql "$@"
+		$cmd -Ql "$@"
 		;;
 	version)
-		pacman -Qi "$@"| grep -e Version -e Name
-		#pacman -Qi "$@"|grep "Version\|Name"
-	;;
+		$cmd -Qi "$@"| grep -e Version -e Name
+		#$cmd -Qi "$@"|grep "Version\|Name"
+		;;
+	manager)
+		echo $cmd
+		;;
 #...........................................
 	*)
 		[ -z $command ] || echo Unknown command: $command

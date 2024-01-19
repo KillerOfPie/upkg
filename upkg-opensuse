@@ -15,45 +15,17 @@
 #
 #===============================================================================
 
-VERSION=0.6
+VERSION=0.7
 
-USAGE=$(cat <<ENDSTR
-
-Usage: ${0/\.\//} <command> [arguments]
-
-Commands:
-
-	install
-		Install a package(s) by name
-
-	remove
-		Remove a package(s) by name
-
-	search
-		Search for package(s) by name
-
-	update
-		Update local catalog then Upgrade Packages ->
-		Upgrades installed packages which have a newer version
-
-	locate FILE
-		Find the package which provides FILE
-
-	info
-		Print information about a package
-
-	list
-		List the files installed with a package
-
-	version
-		Gives the version number of a package(s) by name
-		
--		
-ENDSTR
-)
+USAGE=$(eval "cat <<EOF
+$(<./help)
+EOF
+")
 
 sudo=$(which sudo 2> /dev/null|cut -d ':' -f 2)
 if [ $(id -u) -eq 0 ]; then sudo=""; fi
+
+cmd="zypper"
 
 command="$1"
 shift
@@ -66,25 +38,28 @@ case "$command" in
 
 #...........................................
 	install)
-		$sudo zypper install "$@"
+		$sudo $cmd install "$@"
 		;;
 	remove)
-		$sudo zypper remove  "$@"
+		$sudo $cmd remove  "$@"
 		;;
-        update|upgrade)
-		$sudo zypper update
+    update|upgrade)
+		$sudo $cmd update
 		;;
 	search)
-		zypper search "$@"
+		$cmd search "$@"
 		;;
 	locate|belong)
-		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   zypper info $i 2> /dev/null; fi;  done
+		for i in $(whereis $1|cut -d ':' -f 2); do if [ ! -z $(echo $i|grep -v .gz|grep -v man) ];then   $cmd info $i 2> /dev/null; fi;  done
 		;;
 	info)
-		zypper service-list "$@"
+		$cmd service-list "$@"
 		;;
 	list|files)
 		rpm -Ql "$@"
+		;;
+	manager)
+		echo $cmd
 		;;
 #...........................................
 	*)

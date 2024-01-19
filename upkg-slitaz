@@ -15,45 +15,17 @@
 #
 #===============================================================================
 
-VERSION=0.6
+VERSION=0.7
 
-USAGE=$(cat <<ENDSTR
-
-Usage: ${0/\.\//} <command> [arguments]
-
-Commands:
-
-	install
-		Install a package(s) by name
-
-	remove
-		Remove a package(s) by name
-
-	search
-		Search for package(s) by name
-
-	update
-		Update local catalog then Upgrade Packages ->
-		Upgrades installed packages which have a newer version
-
-	locate FILE
-		Find the package which provides FILE
-
-	info
-		Print information about a package
-
-	list
-		List the files installed with a package
-
-	version
-		Gives the version number of a package(s) by name
-		
--		
-ENDSTR
-)
+USAGE=$(eval "cat <<EOF
+$(<./help)
+EOF
+")
 
 sudo=$(which sudo 2> /dev/null|cut -d ':' -f 2)
 if [ $(id -u) -eq 0 ]; then sudo=""; fi
+
+cmd="tazpkg"
 
 command="$1"
 shift
@@ -66,28 +38,31 @@ case "$command" in
 
 #...........................................
 	install)
-		$sudo tazpkg get-install "$@"
+		$sudo $cmd get-install "$@"
 		;;
 	remove)
-		$sudo tazpkg remove  "$@"
+		$sudo $cmd remove  "$@"
 		;;
-        update|upgrade)
-		$sudo tazpkg upgrade
+    update|upgrade)
+		$sudo $cmd upgrade
 		;;
 	search)
-		tazpkg search "$@"
+		$cmd search "$@"
 		;;
 	locate|belong)
-		tazpkg search-file "$@"
+		$cmd search-file "$@"
 		;;
 	info)
-		tazpkg info "$@"
+		$cmd info "$@"
 		;;
 	list|files)
-		tazpkg list-files "$@"
+		$cmd list-files "$@"
 		;;
     version)
-		tazpkg info "$@" | grep Version
+		$cmd info "$@" | grep Version
+		;;
+	manager)
+		echo $cmd
 		;;
 #...........................................
 	*)
